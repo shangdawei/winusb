@@ -356,7 +356,8 @@ namespace MadWizard.WinUSBNet.API
                 Exception error = null;
                 if (errorCode != 0)
                 {
-                    error = APIException.Win32("Asynchronous operation on WinUSB device failed.", (int)errorCode);
+                    Win32Exception e = new Win32Exception((int)errorCode);
+                    error = APIException.Win32("Asynchronous operation on WinUSB device failed: " + e.Message, (int)errorCode);
                 }
                 Overlapped overlapped = Overlapped.Unpack(pOverlapped);
                 USBAsyncResult result = (USBAsyncResult)overlapped.AsyncResult;
