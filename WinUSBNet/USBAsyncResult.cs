@@ -103,7 +103,15 @@ namespace MadWizard.WinUSBNet
                 _error = error;
                 _bytesTransfered = bytesTransfered;
                 if (_waitEvent != null)
-                    _waitEvent.Set();
+                {
+                    try
+                    {
+                        _waitEvent.Set();
+                    }
+                    catch (ObjectDisposedException ode)
+                    {
+                    }
+                }
             }
             if (_userCallback != null)
             {
